@@ -28,6 +28,25 @@ jQuery(function($) {
 
 			$(detail).attr('open', false);
 
+			// Double iteration workaround because otherwise Safari leaves out certain text nodes arbitrarily(?)
+			if($.browser.safari == true) {
+
+				for(var i = 0; i < childrenLength; i++) {
+
+					if(children[i].nodeType == 3 && children[i].textContent != "") {
+						var	span = $('<span />');
+							span.text(children[i].textContent).hide();
+
+						$(children[i]).after(span);
+						children[i].textContent = '';
+						childrenLength++;
+
+					}
+
+				}
+
+			}
+
 			$.each(children, function(cKey, childElement) {
 
 				if($(childElement)[0].nodeType == 1 
@@ -44,14 +63,16 @@ jQuery(function($) {
 					}
 
 				} else if($(childElement)[0].nodeType == 3 
-					&& !childElement.isElementContentWhitespace) {
+					&& !childElement.isElementContentWhitespace
+					&& !!$.browser.safari == false) {
 
 					var	span = $('<span />');
 						span.text(childElement.textContent).hide();
 
 					$(childElement).after(span);
 					childElement.textContent = '';
-
+/*
+*/
 				} else if ($(detail).find('> summary').length == 0) {
 
 					var summary = $('<summary />').text('Details').css({"display":"block", "cursor":"pointer"}).data('processed', true).addClass('detailHidden').bind('click', function() {
