@@ -45,7 +45,7 @@ jQuery(function($) {
 
 				} else if($(childElement)[0].nodeType == 3 
 					/*&& !childElement.isElementContentWhitespace*/) {
-alert('found textnode' + childElement.textContent);
+
 					var	span = $('<span />').css({"color":"red"});
 						span.text(childElement.textContent).hide();
 
