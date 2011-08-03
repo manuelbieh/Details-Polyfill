@@ -44,9 +44,9 @@ jQuery(function($) {
 					}
 
 				} else if($(childElement)[0].nodeType == 3 
-					/*&& !childElement.isElementContentWhitespace*/) {
+					&& !childElement.isElementContentWhitespace) {
 
-					var	span = $('<span />').css({"color":"red"});
+					var	span = $('<span />');
 						span.text(childElement.textContent).hide();
 
 					$(childElement).after(span);
