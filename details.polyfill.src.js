@@ -143,12 +143,15 @@ jQuery(function($) {
 		}(document));
 
 		if(isDetailsSupported == false) {
+		  
+		  if ($("details").length !== 0){
+  			var style = $('<style />').text('summary {-webkit-text-size-adjust: none;}  details > summary:first-child:before {content: "▼"; font-size:.9em;padding-right:6px;font-family:"Courier New";} details > summary.detailHidden:first-child:before {content: "►";font-size:.9em;padding-right:6px;font-family:"Courier New";}');
+  			$('head').append(style);
+      }
 
 			$.each($('details'), function(dKey, detailElement) {
 
 				me.hideDetailChildren(detailElement);
-				var style = $('<style />').text('summary {-webkit-text-size-adjust: none;} details > summary:first-child:before {content: "▼ "} details > summary.detailHidden:first-child:before {content: "► "}');
-				$('head').append(style);
 
 			});
 
